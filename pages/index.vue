@@ -11,9 +11,9 @@
                       </div>  
                  </b-row>
                  <b-row>                                       
-                    <b-col md="4"  v-for="article in filteredlist" class="item">
+                    <b-col md="4"  v-for="(article, key) in filteredlist" :key="article.title" class="item" >
                         <div class="box">
-                          <nuxt-link :to="'/article/' + article.title">{{ article.author }}</nuxt-link>
+                          <nuxt-link :to="'/resorts/' + key">{{ article.author }}</nuxt-link>
                         </div>                           
                     </b-col>                                            
                  </b-row>
@@ -99,9 +99,16 @@
 
     async asyncData ({ params }) {
       let { data } = await axios.get(`https://newsapi.org/v2/everything?q=bitcoin&apiKey=25a3857fd2194fa1a74eb16ac900b313`)
-      console.log( data );
+      // console.log( data );
       return {articles:data.articles}
     },
+
+    // fetch ({ store, params }) {
+    //   return axios.get('https://newsapi.org/v2/everything?q=bitcoin&apiKey=25a3857fd2194fa1a74eb16ac900b313')
+    //   .then((res) => {
+    //     store.commit('setStars', res.data)
+    //   })
+    // },
 
     data () {
       return {keyword:''}
